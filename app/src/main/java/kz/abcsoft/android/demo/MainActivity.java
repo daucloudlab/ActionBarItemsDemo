@@ -1,18 +1,53 @@
 package kz.abcsoft.android.demo;
 
+
 import android.app.Activity;
+
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener{
+
+    final String LOG_TAG = "myLogs";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        ActionBar bar = getSupportActionBar() ;
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        ActionBar.Tab tab1 = bar.newTab() ;
+        tab1.setText("Tab 1") ;
+        tab1.setTabListener(this) ;
+        bar.addTab(tab1);
+
+        ActionBar.Tab tab2 = bar.newTab() ;
+        tab2.setText("Tab 2") ;
+        tab2.setTabListener(this) ;
+        bar.addTab(tab2);
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        Log.d(LOG_TAG, "selected tab: " + tab.getText());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        Log.d(LOG_TAG, "unselected tab: " + tab.getText());
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        Log.d(LOG_TAG, "reselected tab: " + tab.getText());
     }
 
     @Override
